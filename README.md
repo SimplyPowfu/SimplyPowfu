@@ -19,7 +19,7 @@
 
 ### Languages and Tools:
 <p align="left">
-    <img src="https://skillicons.dev/icons?i=linux,c,cpp,csharp,unity,vscode,python,git,html,css,ts" />
+    <img src="https://skillicons.dev/icons?i=linux,c,cpp,cs,unity,vscode,python,git,html,css,ts" />
 </p>
 
 - 🔭 I’m currently working on ...
