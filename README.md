@@ -1,20 +1,13 @@
 ## Hi! I'm Enrico Carbonaro
 ### I love coding and learning new things
 
-<table>
-  <tr>
-    <td>
-      <a href="https://github.com/SimplyPowfu">
-        <img src="https://github-readme-stats.vercel.app/api?username=SimplyPowfu&show_icons=true&theme=github_dark&hide_title=true" width="397" height="200" />
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/SimplyPowfu?tab=repositories">
-        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=SimplyPowfu&hide=swift,roff,perl&layout=compact&theme=github_dark" width="380" height="200" />
-      </a>
-    </td>
-  </tr>
-</table>
+<a href="https://github.com/SimplyPowfu">
+  <img src="https://github-readme-stats.vercel.app/api?username=SimplyPowfu&show_icons=true&theme=github_dark&hide_title=true" width="100%" />
+</a>
+
+<a href="https://github.com/SimplyPowfu?tab=repositories">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=SimplyPowfu&hide=swift,roff,perl&layout=compact&theme=github_dark" width="100%" />
+</a>
 
 ### My 42 profile:
 <a href="https://github.com/oakoudad/badge42">
