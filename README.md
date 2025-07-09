@@ -1,9 +1,24 @@
-## Hi there 👋
+## Hi there, I'm Enrico Carbonaro
+### I love coding and learning new things
 
-<!--
-**SimplyPowfu/SimplyPowfu** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+<table>
+    <tr>
+        <a href="https://github.com/ecarbona">
+            <img src="https://awesome-github-stats.azurewebsites.net/user-stats/ecarbona?cardType=level&theme=tokyonight" width="397" height="200">
+        </a> 
+        <a href="https://github.com/ecarbona?tab=repositories">
+            <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ecarbona&hide=swift,roff,perl&layout=compact&theme=tokyonight" width="380" height="200">
+        </a>
+    </tr>
+</table>
 
-Here are some ideas to get you started:
+### My 42 profile:
+<a href="https://github.com/oakoudad/badge42"><img src="https://badge.mediaplus.ma/starryblue/ecarbona?1337Badge=off&UM6P=off" alt="ecarbona's 42 stats" /></a>
+
+### Languages and Tools:
+<p align="left">
+    <img src="https://skillicons.dev/icons?i=linux,c,cpp,bash,vscode,vim,git"/>
+</p>
 
 - 🔭 I’m currently working on ...
 - 🌱 I’m currently learning ...
@@ -12,5 +27,3 @@ Here are some ideas to get you started:
 - 💬 Ask me about ...
 - 📫 How to reach me: ...
 - 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
