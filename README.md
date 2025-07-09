@@ -28,6 +28,5 @@
 - 📫 How to reach me: [![Linkedin](https://i.sstatic.net/gVE0j.png) LinkedIn](https://www.linkedin.com/in/enrico-carbonaro-875239338)
 - 😄 Pronouns: he/him
 
-<p align="center">
-  <img src="https://github.com/SimplyPowfu/SimplyPowfu/blob/output/github-snake-dark.svg" alt="github-snake" />
-</p>
+###
+![snake gif](https://github.com/SimplyPowfu/SimplyPowfu/blob/output/github-snake-dark.svg" alt="github-snake)
