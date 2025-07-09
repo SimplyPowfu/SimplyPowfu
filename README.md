@@ -1,19 +1,21 @@
-## Hi there, I'm Enrico Carbonaro
+## Hi there, I'm Enrico Carbonaro ✉️
 ### I love coding and learning new things
 
 <table>
     <tr>
-        <a href="https://github.com/ecarbona">
-            <img src="https://awesome-github-stats.azurewebsites.net/user-stats/ecarbona?cardType=level&theme=tokyonight" width="397" height="200">
+        <a href="https://github.com/SimplyPowfu">
+            <img src="https://awesome-github-stats.azurewebsites.net/user-stats/SimplyPowfu?cardType=level&theme=tokyonight" width="397" height="200">
         </a> 
-        <a href="https://github.com/ecarbona?tab=repositories">
-            <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ecarbona&hide=swift,roff,perl&layout=compact&theme=tokyonight" width="380" height="200">
+        <a href="https://github.com/SimplyPowfu?tab=repositories">
+            <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=SimplyPowfu&hide=swift,roff,perl&layout=compact&theme=tokyonight" width="380" height="200">
         </a>
     </tr>
 </table>
 
 ### My 42 profile:
-<a href="https://github.com/oakoudad/badge42"><img src="https://badge.mediaplus.ma/starryblue/ecarbona?1337Badge=off&UM6P=off" alt="ecarbona's 42 stats" /></a>
+<a href="https://github.com/oakoudad/badge42">
+    <img src="https://badge.mediaplus.ma/starryblue/ecarbona?1337Badge=off&UM6P=off" alt="ecarbona's 42 stats" />
+</a>
 
 ### Languages and Tools:
 <p align="left">
