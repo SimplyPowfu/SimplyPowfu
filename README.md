@@ -1,4 +1,4 @@
-## Hi there, I'm Enrico Carbonaro ✉️
+## Hi there, I'm Enrico Carbonaro
 ### I love coding and learning new things
 
 <table>
@@ -19,7 +19,7 @@
 
 ### Languages and Tools:
 <p align="left">
-    <img src="https://skillicons.dev/icons?i=linux,c,cpp,bash,vscode,vim,git"/>
+    <img src="https://skillicons.dev/icons?i=linux,c,cpp,csharp,unity,vscode,python,git,html,css,ts" />
 </p>
 
 - 🔭 I’m currently working on ...
