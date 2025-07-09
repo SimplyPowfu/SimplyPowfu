@@ -29,4 +29,4 @@
 - 😄 Pronouns: he/him
 
 ###
-![snake gif](https://github.com/SimplyPowfu/SimplyPowfu/blob/output/github-snake-dark.svg" alt="github-snake)
+<img src="https://github.com/SimplyPowfu/SimplyPowfu/blob/output/github-snake-dark.svg" alt="github-snake" />
