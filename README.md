@@ -20,7 +20,6 @@
 </a>
 </div>
 
-### Languages and Tools:
 <p align="center">
   <img src="https://skillicons.dev/icons?i=linux,c,cpp,cs,unity,vscode,python,git,html,css,ts" />
 </p>
@@ -30,5 +29,4 @@
 - 📫 How to reach me: [![Linkedin](https://i.sstatic.net/gVE0j.png) LinkedIn](https://www.linkedin.com/in/enrico-carbonaro-875239338)
 - 😄 Pronouns: he/him
 
-###
 <img src="https://github.com/SimplyPowfu/SimplyPowfu/blob/output/github-snake-dark.svg" alt="github-snake" />
