@@ -18,8 +18,7 @@
   <img src="https://badge.mediaplus.ma/greenbinary/ecarbona?1337Badge=off&UM6P=off" alt="ecarbona's 42 stats" />
 </a>
 
-### Languages and Tools:
-<p align="left">
+<p align="center">
   <img src="https://skillicons.dev/icons?i=linux,c,cpp,cs,unity,vscode,python,git,html,css,ts" />
 </p>
 
