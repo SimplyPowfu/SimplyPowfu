@@ -30,7 +30,7 @@
 </div>
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=linux,docker,c,cpp,cs,unity,vscode,python,git,html,css,ts" />
+  <img src="https://skillicons.dev/icons?i=linux,docker,c,cpp,cs,unity,vscode,python,git,html,css,react,nodejs,vercel,firebase" />
 </p>
 
 - 🔭 I’m currently working on a translator for the LIS (Italian Sign Language)
