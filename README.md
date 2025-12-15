@@ -23,8 +23,6 @@
 ### My project
 <div align="center">
 
-[![Python Hand Detector](https://github-readme-stats.vercel.app/api/pin/?username=SimplyPowfu&repo=PythonProject-HandDetector-PIS&theme=dark&bg_color=0A0F1F&border_color=FFFFFF&title_color=4CAF50&text_color=FFFFFF&size_weight=0.3&count_weight=0.7&cache_bust=1)](https://github.com/SimplyPowfu/PythonProject-HandDetector-PIS)
-
 [![42CommonCore](https://github-readme-stats.vercel.app/api/pin/?username=SimplyPowfu&repo=42CommonCore&theme=dark&bg_color=0A0F1F&border_color=FFFFFF&title_color=4CAF50&text_color=FFFFFF&size_weight=0.3&count_weight=0.7&cache_bust=1)](https://github.com/SimplyPowfu/42CommonCore)
 
 </div>
