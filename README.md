@@ -28,7 +28,7 @@
 </div>
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=linux,docker,c,cpp,cs,unity,vscode,python,git,html,css,react,nodejs,vercel,firebase" />
+  <img src="https://skillicons.dev/icons?i=c,cpp,cs,python,html,css,ts,react,nodejs,express,prisma,supabase,firebase,unity,linux,docker,git,vercel,vscode&perline=10" />
 </p>
 
 - 🔭 I’m currently working on a translator for the LIS (Italian Sign Language)
