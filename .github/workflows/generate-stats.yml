@@ -1,9 +1,9 @@
-name: Generate Custom Profile Stats
+name: Generate Real GitHub Stats SVG
 
 on:
   schedule:
-    - cron: "0 3 * * *"
-  workflow_dispatch:
+    - cron: "0 3 * * *"      # ogni giorno alle 03:00 UTC
+  workflow_dispatch:         # puoi lanciarlo anche a mano
 
 jobs:
   build:
@@ -12,7 +12,7 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Install Node.js
@@ -23,31 +23,93 @@ jobs:
       - name: Create assets folder
         run: mkdir -p assets
 
-      - name: Generate custom stats SVG
+      - name: Generate REAL stats SVG from GitHub API
         run: |
           node - << 'EOF'
           const fs = require('fs');
 
-          // Qui potresti in futuro anche usare fetch verso l'API GitHub,
-          // per ora facciamo un widget che funziona SEMPRE
+          const USER = "SimplyPowfu";
 
-          const svg = `
-          <svg width="500" height="160" xmlns="http://www.w3.org/2000/svg">
-            <rect width="500" height="160" rx="15" fill="#0A0F1F"/>
-            <text x="20" y="40" fill="#4CAF50" font-size="22">SimplyPowfu — GitHub Stats</text>
-            <text x="20" y="75" fill="white" font-size="16">• Repo pubblici:  ?</text>
-            <text x="20" y="100" fill="white" font-size="16">• Stelle totali:  ?</text>
-            <text x="20" y="125" fill="white" font-size="16">• Ultimo update: ${new Date().toLocaleDateString()}</text>
-          </svg>
-          `;
+          async function getStats() {
+            // Chiamata all'API di GitHub
+            const res = await fetch(`https://api.github.com/users/${USER}`);
+            const data = await res.json();
 
-          fs.writeFileSync('assets/stats.svg', svg);
+            // Otteniamo i dati principali
+            const publicRepos = data.public_repos;
+            const followers = data.followers;
+
+            // Per le stelle totali dobbiamo guardare tutti i repo
+            const reposRes = await fetch(`https://api.github.com/users/${USER}/repos?per_page=100`);
+            const repos = await reposRes.json();
+
+            let totalStars = 0;
+            let languageCount = {};
+
+            repos.forEach(repo => {
+              totalStars += repo.stargazers_count || 0;
+
+              if (repo.language) {
+                languageCount[repo.language] = (languageCount[repo.language] || 0) + 1;
+              }
+            });
+
+            // Troviamo il linguaggio principale
+            let mainLanguage = "N/A";
+            let max = 0;
+            for (const [lang, count] of Object.entries(languageCount)) {
+              if (count > max) {
+                max = count;
+                mainLanguage = lang;
+              }
+            }
+
+            // Creiamo l'SVG dinamico
+            const today = new Date().toLocaleDateString("it-IT");
+
+            const svg = `
+<svg width="520" height="180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0F1F"/>
+      <stop offset="100%" stop-color="#06101A"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="520" height="180" rx="16" fill="url(#bg)"/>
+
+  <text x="25" y="40" fill="#4CAF50" font-size="22" font-weight="bold">
+    SimplyPowfu — GitHub Stats
+  </text>
+
+  <text x="25" y="75" fill="white" font-size="16">
+    • Repos pubblici: ${publicRepos}
+  </text>
+
+  <text x="25" y="100" fill="white" font-size="16">
+    • Stelle totali: ${totalStars}
+  </text>
+
+  <text x="25" y="125" fill="white" font-size="16">
+    • Linguaggio principale: ${mainLanguage}
+  </text>
+
+  <text x="25" y="155" fill="#AAAAAA" font-size="12">
+    Ultimo update: ${today}
+  </text>
+</svg>
+            `;
+
+            fs.writeFileSync("assets/stats.svg", svg);
+          }
+
+          getStats();
           EOF
 
-      - name: Commit and push
+      - name: Commit and push SVG
         run: |
           git config --global user.name "github-bot"
           git config --global user.email "bot@github.com"
           git add assets/stats.svg
-          git commit -m "Update custom stats" || echo "No changes"
+          git commit -m "Update profile stats SVG" || echo "No changes"
           git push
