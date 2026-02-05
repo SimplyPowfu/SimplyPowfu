@@ -24,21 +24,41 @@ jobs:
         run: mkdir -p assets
 
       - name: Create and run script to generate SVG
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cat << 'EOF' > script.js
           const fs = require('fs');
 
           const USER = "SimplyPowfu";
+          const TOKEN = process.env.GITHUB_TOKEN;
+          const headers = TOKEN ? { Authorization: `Bearer ${TOKEN}` } : {};
 
           async function getStats() {
             // -------- DATI BASE PROFILO --------
-            const userRes = await fetch(`https://api.github.com/users/${USER}`);
+            const userRes = await fetch(`https://api.github.com/users/${USER}`, { headers });
+            if (!userRes.ok) {
+              console.error("Failed to fetch user:", await userRes.text());
+              process.exit(1);
+            }
             const user = await userRes.json();
 
             const reposRes = await fetch(
-              `https://api.github.com/users/${USER}/repos?per_page=100`
+              `https://api.github.com/users/${USER}/repos?per_page=100`, 
+              { headers }
             );
+            
+            if (!reposRes.ok) {
+              console.error("Failed to fetch repos:", await reposRes.text());
+              process.exit(1);
+            }
+            
             const repos = await reposRes.json();
+
+            if (!Array.isArray(repos)) {
+              console.error("Repos response is not an array:", repos);
+              process.exit(1);
+            }
 
             let totalStars = 0;
             let languageCount = {};
