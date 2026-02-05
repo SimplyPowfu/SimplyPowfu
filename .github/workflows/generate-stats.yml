@@ -35,133 +35,129 @@ jobs:
           const headers = TOKEN ? { Authorization: `Bearer ${TOKEN}` } : {};
 
           async function getStats() {
-            // -------- DATI BASE PROFILO --------
+            // --- FETCH DATA ---
             const userRes = await fetch(`https://api.github.com/users/${USER}`, { headers });
             if (!userRes.ok) {
-              console.error("Failed to fetch user:", await userRes.text());
-              process.exit(1);
+                console.error("Failed to fetch user:", await userRes.text());
+                process.exit(1);
             }
             const user = await userRes.json();
 
             const reposRes = await fetch(
-              `https://api.github.com/users/${USER}/repos?per_page=100`, 
-              { headers }
+                `https://api.github.com/users/${USER}/repos?per_page=100`, 
+                { headers }
             );
-            
             if (!reposRes.ok) {
-              console.error("Failed to fetch repos:", await reposRes.text());
-              process.exit(1);
+                console.error("Failed to fetch repos:", await reposRes.text());
+                process.exit(1);
             }
-            
             const repos = await reposRes.json();
-
+            
             if (!Array.isArray(repos)) {
-              console.error("Repos response is not an array:", repos);
-              process.exit(1);
+                console.error("Repos response is not an array:", repos);
+                process.exit(1);
             }
 
             let totalStars = 0;
             let languageCount = {};
-
             repos.forEach(repo => {
-              totalStars += repo.stargazers_count || 0;
-              if (repo.language) {
-                languageCount[repo.language] =
-                  (languageCount[repo.language] || 0) + 1;
-              }
+                totalStars += repo.stargazers_count || 0;
+                if (repo.language) {
+                    languageCount[repo.language] = (languageCount[repo.language] || 0) + 1;
+                }
             });
 
             const topLangs = Object.entries(languageCount)
-              .sort((a, b) => b[1] - a[1])
-              .slice(0, 3);
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 4);
 
-            const today = new Date().toLocaleDateString("it-IT");
+            const today = new Date().toLocaleDateString("it-IT", { day: '2-digit', month: 'short', year: 'numeric' });
 
-            // ===================== STATS.SVG =====================
+            // --- TEMPLATE CONSTANTS ---
+            const BG_COLOR = "#0D1117";
+            const ACCENT = "#58A6FF";
+            const TEXT_MAIN = "#C9D1D9";
+            const TEXT_DIM = "#8B949E";
+
+            const commonDefs = `
+            <defs>
+                <pattern id="dotGrid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <circle cx="2" cy="2" r="1" fill="#1f242c" />
+                </pattern>
+            </defs>`;
+
+            // --- 1. STATS CARD ---
             const statsSvg = `
-          <svg width="520" height="180" xmlns="http://www.w3.org/2000/svg">
-            <rect width="520" height="180" rx="16" fill="#0A0F1F"/>
-            <text x="25" y="40" fill="#4CAF50" font-size="22" font-weight="bold">
-              SimplyPowfu — GitHub Stats
-            </text>
-            <text x="25" y="75" fill="white" font-size="16">
-              • Repo pubblici: ${user.public_repos}
-            </text>
-            <text x="25" y="100" fill="white" font-size="16">
-              • Stelle totali: ${totalStars}
-            </text>
-            <text x="25" y="125" fill="white" font-size="16">
-              • Followers: ${user.followers}
-            </text>
-            <text x="25" y="155" fill="#AAAAAA" font-size="12">
-              Ultimo update: ${today}
-            </text>
-          </svg>
-            `;
-            fs.writeFileSync("assets/stats.svg", statsSvg);
+            <svg width="450" height="180" viewBox="0 0 450 180" xmlns="http://www.w3.org/2000/svg">
+                ${commonDefs}
+                <rect width="450" height="180" rx="12" fill="${BG_COLOR}" stroke="#30363d" stroke-width="1"/>
+                <rect width="450" height="180" rx="12" fill="url(#dotGrid)" />
+                
+                <text x="25" y="35" fill="${ACCENT}" font-family="Segoe UI, Ubuntu, sans-serif" font-size="18" font-weight="600">Overview</text>
+                <line x1="25" y1="50" x2="425" y2="50" stroke="#30363d" stroke-width="1" />
 
-            // ===================== TOP-LANGS.SVG =====================
-            const bars = topLangs.map(([lang], i) => {
-              const widths = [260, 200, 140];
-              const yPositions = [70, 105, 140];
+                <g transform="translate(25, 80)">
+                    <text y="0" fill="${TEXT_DIM}" font-family="Segoe UI, sans-serif" font-size="14">Public Repositories</text>
+                    <text y="25" fill="${TEXT_MAIN}" font-family="Segoe UI, sans-serif" font-size="22" font-weight="bold">${user.public_repos}</text>
+                </g>
 
-              return `
-            <text x="20" y="${yPositions[i]}" fill="white" font-size="16">${lang}</text>
-            <rect x="180" y="${yPositions[i] - 15}"
-                  width="${widths[i]}" height="14" rx="7" fill="#4CAF50"/>
-              `;
-            }).join("\n");
+                <g transform="translate(190, 80)">
+                    <text y="0" fill="${TEXT_DIM}" font-family="Segoe UI, sans-serif" font-size="14">Total Stars</text>
+                    <text y="25" fill="${TEXT_MAIN}" font-family="Segoe UI, sans-serif" font-size="22" font-weight="bold">${totalStars}</text>
+                </g>
+
+                <g transform="translate(330, 80)">
+                    <text y="0" fill="${TEXT_DIM}" font-family="Segoe UI, sans-serif" font-size="14">Followers</text>
+                    <text y="25" fill="${TEXT_MAIN}" font-family="Segoe UI, sans-serif" font-size="22" font-weight="bold">${user.followers}</text>
+                </g>
+
+                <text x="25" y="155" fill="${TEXT_DIM}" font-family="Segoe UI, sans-serif" font-size="11" font-style="italic">Last synced: ${today}</text>
+            </svg>`;
+
+            // --- 2. TOP LANGUAGES CARD (Dynamic Bars) ---
+            const maxVal = topLangs.length > 0 ? topLangs[0][1] : 1;
+            const langBars = topLangs.map(([lang, count], i) => {
+                const width = (count / maxVal) * 220;
+                const y = 75 + (i * 35);
+                return `
+                    <text x="25" y="${y}" fill="${TEXT_MAIN}" font-family="Segoe UI, sans-serif" font-size="14">${lang}</text>
+                    <rect x="140" y="${y - 12}" width="240" height="10" rx="5" fill="#161b22" />
+                    <rect x="140" y="${y - 12}" width="${width}" height="10" rx="5" fill="${ACCENT}" />
+                    <text x="400" y="${y}" fill="${TEXT_DIM}" font-family="Segoe UI, sans-serif" font-size="12">${count}</text>
+                `;
+            }).join('');
 
             const topLangsSvg = `
-          <svg width="520" height="200" xmlns="http://www.w3.org/2000/svg">
-            <rect width="520" height="200" rx="16" fill="#0A0F1F"/>
-            <text x="20" y="40" fill="#4CAF50" font-size="22">
-              Top Languages — SimplyPowfu
-            </text>
+            <svg width="450" height="220" viewBox="0 0 450 220" xmlns="http://www.w3.org/2000/svg">
+                ${commonDefs}
+                <rect width="450" height="220" rx="12" fill="${BG_COLOR}" stroke="#30363d" stroke-width="1"/>
+                <rect width="450" height="220" rx="12" fill="url(#dotGrid)" />
+                <text x="25" y="35" fill="${ACCENT}" font-family="Segoe UI, sans-serif" font-size="18" font-weight="600">Top Languages</text>
+                <line x1="25" y1="50" x2="425" y2="50" stroke="#30363d" stroke-width="1" />
+                ${langBars}
+            </svg>`;
 
-            ${bars}
-
-            <text x="20" y="180" fill="#AAAAAA" font-size="12">
-              Aggiornato: ${today}
-            </text>
-          </svg>
-            `;
+            // --- WRITE FILES ---
+            fs.writeFileSync("assets/stats.svg", statsSvg);
             fs.writeFileSync("assets/top-langs.svg", topLangsSvg);
 
-            // ===================== CARD PROGETTI =====================
-
-            function projectCard(repoName, description, stars, language) {
-              return `
-          <svg width="520" height="140" xmlns="http://www.w3.org/2000/svg">
-            <rect width="520" height="140" rx="16" fill="#0A0F1F"/>
-            <text x="20" y="35" fill="#4CAF50" font-size="20">${repoName}</text>
-            <text x="20" y="65" fill="white" font-size="14">${description}</text>
-            <text x="20" y="95" fill="white" font-size="14">⭐ ${stars} stelle</text>
-            <text x="20" y="115" fill="white" font-size="14">🛠️ ${language || "N/A"}</text>
-          </svg>
-              `;
+            // --- 3. PROJECT CARDS (Simplified Minimal) ---
+            function generateProjectCard(name, desc, stars, lang) {
+                return `
+                <svg width="450" height="120" viewBox="0 0 450 120" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="450" height="120" rx="12" fill="${BG_COLOR}" stroke="#30363d" stroke-width="1"/>
+                    <text x="25" y="35" fill="${ACCENT}" font-family="Segoe UI, sans-serif" font-size="18" font-weight="600">${name}</text>
+                    <text x="25" y="65" fill="${TEXT_MAIN}" font-family="Segoe UI, sans-serif" font-size="14">${(desc || '').substring(0, 55)}${(desc || '').length > 55 ? '...' : ''}</text>
+                    <rect x="25" y="85" width="10" height="10" rx="2" fill="${ACCENT}" />
+                    <text x="40" y="94" fill="${TEXT_DIM}" font-family="Segoe UI, sans-serif" font-size="12">${lang || 'N/A'}  •  ⭐ ${stars}</text>
+                </svg>`;
             }
 
-            // Troviamo i tuoi due repo
-            const repo42 = repos.find(r => r.name === "42CommonCore");
-            const repoTrans = repos.find(r => r.name === "Transcendence");
+            const repo42 = repos.find(r => r.name === "42CommonCore") || { name: "42CommonCore", description: "Curriculum projects", stargazers_count: 0, language: "C" };
+            const repoTrans = repos.find(r => r.name === "Transcendence") || { name: "Transcendence", description: "Final web project", stargazers_count: 0, language: "TypeScript" };
 
-            const card42 = projectCard(
-              "42CommonCore",
-              repo42?.description || "Progetti del Common Core di 42",
-              repo42?.stargazers_count || 0,
-              repo42?.language || "C"
-            );
-
-            const cardTrans = projectCard(
-              "Transcendence",
-              repoTrans?.description || "Progetto Web di 42",
-              repoTrans?.stargazers_count || 0,
-              repoTrans?.language || "TypeScript"
-            );
-
-            fs.writeFileSync("assets/42CommonCore.svg", card42);
-            fs.writeFileSync("assets/Transcendence.svg", cardTrans);
+            fs.writeFileSync("assets/42CommonCore.svg", generateProjectCard(repo42.name, repo42.description, repo42.stargazers_count, repo42.language));
+            fs.writeFileSync("assets/Transcendence.svg", generateProjectCard(repoTrans.name, repoTrans.description, repoTrans.stargazers_count, repoTrans.language));
           }
 
           getStats();
