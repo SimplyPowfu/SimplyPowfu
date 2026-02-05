@@ -34,8 +34,6 @@ Currently studying at <strong>42 coding school in Florence</strong>.
 
 ### My project
 
-### My project
-
 <p align="center">
   <img src="./assets/42CommonCore.svg" height="140" alt="42CommonCore repository"/>
 </p>
