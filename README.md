@@ -48,8 +48,17 @@ Currently studying at <strong>42 coding school in Florence</strong>.
 <p align="center">
   <a href="https://github.com/SimplyPowfu/42CommonCore">
     <img
-      src="https://github-readme-stats.vercel.app/api/pin/?username=SimplyPowfu&repo=42CommonCore&theme=dark&bg_color=0A0F1F&border_color=FFFFFF&title_color=4CAF50&text_color=FFFFFF&size_weight=0.3&count_weight=0.7&cache_bust=1"
+      src="https://github-readme-stats.vercel.app/api/pin/?username=SimplyPowfu&repo=42CommonCore&theme=dark&bg_color=0A0F1F&border_color=FFFFFF&title_color=4CAF50&text_color=FFFFFF&size_weight=0.3&count_weight=0.7"
       alt="42CommonCore repository"
+    />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/SimplyPowfu/Transcendence">
+    <img
+      src="https://github-readme-stats.vercel.app/api/pin/?username=SimplyPowfu&repo=Transcendence&theme=dark&bg_color=0A0F1F&border_color=FFFFFF&title_color=4CAF50&text_color=FFFFFF&size_weight=0.3&count_weight=0.7"
+      alt="Transcendence repository"
     />
   </a>
 </p>
