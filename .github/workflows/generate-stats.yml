@@ -1,0 +1,38 @@
+name: Generate Profile Stats
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create assets folder
+        run: mkdir -p assets
+
+      - name: Download GitHub stats image
+        run: |
+          curl "https://gh-stats-gen.vercel.app/api?user=SimplyPowfu&theme=dark" \
+          -o assets/stats.svg
+
+      - name: Download Top Languages image
+        run: |
+          curl "https://gh-stats-gen.vercel.app/api/top?user=SimplyPowfu&theme=dark" \
+          -o assets/top-langs.svg
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-bot"
+          git config --global user.email "bot@github.com"
+          git add assets/*.svg
+          git commit -m "Update profile stats" || echo "No changes"
+          git push
+
