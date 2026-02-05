@@ -92,23 +92,23 @@ jobs:
               Ultimo update: ${today}
             </text>
           </svg>
-                      `;
-          
-                      fs.writeFileSync("assets/stats.svg", statsSvg);
-          
-                      // ===================== TOP-LANGS.SVG =====================
-                      const bars = topLangs.map(([lang, count], i) => {
-                        const widths = [260, 200, 140];
-                        const yPositions = [70, 105, 140];
-          
-                        return `
+            `;
+
+            fs.writeFileSync("assets/stats.svg", statsSvg);
+
+            // ===================== TOP-LANGS.SVG =====================
+            const bars = topLangs.map(([lang, count], i) => {
+              const widths = [260, 200, 140];
+              const yPositions = [70, 105, 140];
+
+              return `
             <text x="20" y="${yPositions[i]}" fill="white" font-size="16">${lang}</text>
             <rect x="180" y="${yPositions[i] - 15}" 
                   width="${widths[i]}" height="14" rx="7" fill="#4CAF50"/>
-                        `;
-                      }).join("\n");
-          
-                      const topLangsSvg = `
+              `;
+            }).join("\n");
+
+            const topLangsSvg = `
           <svg width="520" height="200" xmlns="http://www.w3.org/2000/svg">
             <rect width="520" height="200" rx="16" fill="#0A0F1F"/>
           
@@ -122,13 +122,13 @@ jobs:
               Aggiornato: ${today}
             </text>
           </svg>
-                      `;
-          
-                      fs.writeFileSync("assets/top-langs.svg", topLangsSvg);
-                    }
-          
-                    getStats();
-                    EOF
+            `;
+
+            fs.writeFileSync("assets/top-langs.svg", topLangsSvg);
+          }
+
+          getStats();
+          EOF
 
       - name: Commit and push
         run: |
