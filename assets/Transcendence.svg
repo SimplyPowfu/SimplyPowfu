@@ -1,0 +1,9 @@
+
+<svg width="520" height="140" xmlns="http://www.w3.org/2000/svg">
+  <rect width="520" height="140" rx="16" fill="#0A0F1F"/>
+  <text x="20" y="35" fill="#4CAF50" font-size="20">Transcendence</text>
+  <text x="20" y="65" fill="white" font-size="14">Applicazione web con backend a microservizi. Sviluppato in typescript con l’utilizzo di un database in SQLite, Fastify e tailwind.</text>
+  <text x="20" y="95" fill="white" font-size="14">⭐ 0 stelle</text>
+  <text x="20" y="115" fill="white" font-size="14">🛠️ TypeScript</text>
+</svg>
+    
