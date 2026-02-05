@@ -23,66 +23,117 @@ jobs:
       - name: Create assets folder
         run: mkdir -p assets
 
-      - name: Generate BOTH SVG files
+      - name: Generate REAL stats and REAL top-langs SVG
         run: |
           node - << 'EOF'
           const fs = require('fs');
 
-          const today = new Date().toLocaleDateString("it-IT");
+          const USER = "SimplyPowfu";
 
-          // ---------- 1) STATS.SVG ----------
-          const statsSvg = `
-          <svg width="500" height="160" xmlns="http://www.w3.org/2000/svg">
-            <rect width="500" height="160" rx="15" fill="#0A0F1F"/>
-            <text x="20" y="40" fill="#4CAF50" font-size="22">
+          async function getStats() {
+            // 1) Dati utente base
+            const userRes = await fetch(`https://api.github.com/users/${USER}`);
+            const user = await userRes.json();
+
+            // 2) Tutti i repo (per stelle e linguaggi)
+            const reposRes = await fetch(
+              `https://api.github.com/users/${USER}/repos?per_page=100`
+            );
+            const repos = await reposRes.json();
+
+            let totalStars = 0;
+            let languageCount = {};
+
+            repos.forEach(repo => {
+              totalStars += repo.stargazers_count || 0;
+
+              if (repo.language) {
+                languageCount[repo.language] =
+                  (languageCount[repo.language] || 0) + 1;
+              }
+            });
+
+            // ---- Calcolo TOP 3 linguaggi reali ----
+            const topLangs = Object.entries(languageCount)
+              .sort((a, b) => b[1] - a[1])
+              .slice(0, 3);
+
+            const today = new Date().toLocaleDateString("it-IT");
+
+            // ===================== STATS.SVG =====================
+            const statsSvg = `
+          <svg width="520" height="180" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#0A0F1F"/>
+                <stop offset="100%" stop-color="#06101A"/>
+              </linearGradient>
+            </defs>
+          
+            <rect width="520" height="180" rx="16" fill="url(#bg)"/>
+          
+            <text x="25" y="40" fill="#4CAF50" font-size="22" font-weight="bold">
               SimplyPowfu — GitHub Stats
             </text>
-            <text x="20" y="75" fill="white" font-size="16">
-              • Repo pubblici:  (auto in futuro)
+          
+            <text x="25" y="75" fill="white" font-size="16">
+              • Repo pubblici: ${user.public_repos}
             </text>
-            <text x="20" y="100" fill="white" font-size="16">
-              • Stelle totali:  (auto in futuro)
+          
+            <text x="25" y="100" fill="white" font-size="16">
+              • Stelle totali: ${totalStars}
             </text>
-            <text x="20" y="125" fill="white" font-size="16">
-              • Ultimo update: ${today}
+          
+            <text x="25" y="125" fill="white" font-size="16">
+              • Followers: ${user.followers}
+            </text>
+          
+            <text x="25" y="155" fill="#AAAAAA" font-size="12">
+              Ultimo update: ${today}
             </text>
           </svg>
-          `;
-
-          fs.writeFileSync('assets/stats.svg', statsSvg);
-
-          // ---------- 2) TOP-LANGS.SVG ----------
-          const topLangsSvg = `
-          <svg width="500" height="200" xmlns="http://www.w3.org/2000/svg">
-            <rect width="500" height="200" rx="15" fill="#0A0F1F"/>
-
+                      `;
+          
+                      fs.writeFileSync("assets/stats.svg", statsSvg);
+          
+                      // ===================== TOP-LANGS.SVG =====================
+                      const bars = topLangs.map(([lang, count], i) => {
+                        const widths = [260, 200, 140];
+                        const yPositions = [70, 105, 140];
+          
+                        return `
+            <text x="20" y="${yPositions[i]}" fill="white" font-size="16">${lang}</text>
+            <rect x="180" y="${yPositions[i] - 15}" 
+                  width="${widths[i]}" height="14" rx="7" fill="#4CAF50"/>
+                        `;
+                      }).join("\n");
+          
+                      const topLangsSvg = `
+          <svg width="520" height="200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="520" height="200" rx="16" fill="#0A0F1F"/>
+          
             <text x="20" y="40" fill="#4CAF50" font-size="22">
               Top Languages — SimplyPowfu
             </text>
-
-            <text x="20" y="75" fill="white" font-size="16">C</text>
-            <rect x="180" y="60" width="250" height="15" rx="7" fill="#4CAF50"/>
-
-            <text x="20" y="105" fill="white" font-size="16">C++</text>
-            <rect x="180" y="90" width="180" height="15" rx="7" fill="#4CAF50"/>
-
-            <text x="20" y="135" fill="white" font-size="16">Python</text>
-            <rect x="180" y="120" width="120" height="15" rx="7" fill="#4CAF50"/>
-
-            <text x="20" y="175" fill="#AAAAAA" font-size="12">
+          
+            ${bars}
+          
+            <text x="20" y="180" fill="#AAAAAA" font-size="12">
               Aggiornato: ${today}
             </text>
           </svg>
-          `;
-
-          fs.writeFileSync('assets/top-langs.svg', topLangsSvg);
-
-          EOF
+                      `;
+          
+                      fs.writeFileSync("assets/top-langs.svg", topLangsSvg);
+                    }
+          
+                    getStats();
+                    EOF
 
       - name: Commit and push
         run: |
           git config --global user.name "github-bot"
           git config --global user.email "bot@github.com"
           git add assets/*.svg
-          git commit -m "Update custom profile widgets" || echo "No changes"
+          git commit -m "Update profile widgets" || echo "No changes"
           git push
