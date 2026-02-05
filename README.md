@@ -9,11 +9,15 @@ Currently studying at <strong>42 coding school in Florence</strong>.
 ---
 
 <p align="center">
-  <img src="./assets/top-langs.svg" height="180" alt="Top languages"/>
+  <a href=https://github.com/SimplyPowfu/>
+    <img src="./assets/top-langs.svg" height="180" alt="Top languages"/>
+  </a>
 </p>
 
 <p align="center">
-  <img src="./assets/stats.svg" height="150" alt="GitHub stats"/>
+  <a href=https://github.com/SimplyPowfu/>
+    <img src="./assets/stats.svg" height="150" alt="GitHub stats"/>
+  </a>
 </p>
 
 
@@ -35,11 +39,15 @@ Currently studying at <strong>42 coding school in Florence</strong>.
 ### My project
 
 <p align="center">
-  <img src="./assets/42CommonCore.svg" height="140" alt="42CommonCore repository"/>
+  <a href="https://github.com/SimplyPowfu/42CommonCore">
+    <img src="./assets/42CommonCore.svg" height="140" alt="42CommonCore repository"/>
+  </a>
 </p>
 
 <p align="center">
-  <img src="./assets/Transcendence.svg" height="140" alt="Transcendence repository"/>
+  <a href="https://github.com/SimplyPowfu/Transcendence">
+    <img src="./assets/Transcendence.svg" height="140" alt="Transcendence repository"/>
+  </a>
 </p>
 
 ---
