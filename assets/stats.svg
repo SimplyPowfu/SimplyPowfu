@@ -1,8 +1,16 @@
 
 <svg width="500" height="160" xmlns="http://www.w3.org/2000/svg">
   <rect width="500" height="160" rx="15" fill="#0A0F1F"/>
-  <text x="20" y="40" fill="#4CAF50" font-size="22">SimplyPowfu — GitHub Stats</text>
-  <text x="20" y="75" fill="white" font-size="16">• Repo pubblici:  ?</text>
-  <text x="20" y="100" fill="white" font-size="16">• Stelle totali:  ?</text>
-  <text x="20" y="125" fill="white" font-size="16">• Ultimo update: 2/5/2026</text>
+  <text x="20" y="40" fill="#4CAF50" font-size="22">
+    SimplyPowfu — GitHub Stats
+  </text>
+  <text x="20" y="75" fill="white" font-size="16">
+    • Repo pubblici:  (auto in futuro)
+  </text>
+  <text x="20" y="100" fill="white" font-size="16">
+    • Stelle totali:  (auto in futuro)
+  </text>
+  <text x="20" y="125" fill="white" font-size="16">
+    • Ultimo update: 05/02/2026
+  </text>
 </svg>

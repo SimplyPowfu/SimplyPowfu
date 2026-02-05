@@ -1,5 +1,21 @@
-The page could not be found
 
-NOT_FOUND
+<svg width="500" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="500" height="200" rx="15" fill="#0A0F1F"/>
 
-iad1::jj26c-1770308163827-09389cc5dafe
+  <text x="20" y="40" fill="#4CAF50" font-size="22">
+    Top Languages — SimplyPowfu
+  </text>
+
+  <text x="20" y="75" fill="white" font-size="16">C</text>
+  <rect x="180" y="60" width="250" height="15" rx="7" fill="#4CAF50"/>
+
+  <text x="20" y="105" fill="white" font-size="16">C++</text>
+  <rect x="180" y="90" width="180" height="15" rx="7" fill="#4CAF50"/>
+
+  <text x="20" y="135" fill="white" font-size="16">Python</text>
+  <rect x="180" y="120" width="120" height="15" rx="7" fill="#4CAF50"/>
+
+  <text x="20" y="175" fill="#AAAAAA" font-size="12">
+    Aggiornato: 05/02/2026
+  </text>
+</svg>
