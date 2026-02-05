@@ -9,24 +9,13 @@ Currently studying at <strong>42 coding school in Florence</strong>.
 ---
 
 <p align="center">
-  <a href="https://github.com/SimplyPowfu?tab=repositories">
-    <img
-      src="https://github-readme-stats.vercel.app/api/top-langs/?username=SimplyPowfu&hide=swift,roff,perl&layout=compact&theme=github_dark&bg_color=0A0F1F&title_color=4CAF50&icon_color=4CAF50"
-      height="180"
-      alt="Top languages"
-    />
-  </a>
+  <img src="./assets/top-langs.svg" height="180" alt="Top languages"/>
 </p>
 
 <p align="center">
-  <a href="https://github.com/SimplyPowfu">
-    <img
-      src="https://github-readme-stats.vercel.app/api?username=SimplyPowfu&show_icons=true&theme=github_dark&hide_title=true&bg_color=0A0F1F&icon_color=4CAF50&title_color=4CAF50"
-      height="150"
-      alt="GitHub stats"
-    />
-  </a>
+  <img src="./assets/stats.svg" height="150" alt="GitHub stats"/>
 </p>
+
 
 ---
 
