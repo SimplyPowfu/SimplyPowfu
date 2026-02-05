@@ -23,19 +23,18 @@ jobs:
       - name: Create assets folder
         run: mkdir -p assets
 
-      - name: Generate REAL stats and REAL top-langs SVG
+      - name: Create and run script to generate SVG
         run: |
-          node - << 'EOF'
+          cat << 'EOF' > script.js
           const fs = require('fs');
 
           const USER = "SimplyPowfu";
 
           async function getStats() {
-            // 1) Dati utente base
+            // -------- DATI BASE PROFILO --------
             const userRes = await fetch(`https://api.github.com/users/${USER}`);
             const user = await userRes.json();
 
-            // 2) Tutti i repo (per stelle e linguaggi)
             const reposRes = await fetch(
               `https://api.github.com/users/${USER}/repos?per_page=100`
             );
@@ -46,14 +45,12 @@ jobs:
 
             repos.forEach(repo => {
               totalStars += repo.stargazers_count || 0;
-
               if (repo.language) {
                 languageCount[repo.language] =
                   (languageCount[repo.language] || 0) + 1;
               }
             });
 
-            // ---- Calcolo TOP 3 linguaggi reali ----
             const topLangs = Object.entries(languageCount)
               .sort((a, b) => b[1] - a[1])
               .slice(0, 3);
@@ -63,47 +60,34 @@ jobs:
             // ===================== STATS.SVG =====================
             const statsSvg = `
           <svg width="520" height="180" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#0A0F1F"/>
-                <stop offset="100%" stop-color="#06101A"/>
-              </linearGradient>
-            </defs>
-          
-            <rect width="520" height="180" rx="16" fill="url(#bg)"/>
-          
+            <rect width="520" height="180" rx="16" fill="#0A0F1F"/>
             <text x="25" y="40" fill="#4CAF50" font-size="22" font-weight="bold">
               SimplyPowfu — GitHub Stats
             </text>
-          
             <text x="25" y="75" fill="white" font-size="16">
               • Repo pubblici: ${user.public_repos}
             </text>
-          
             <text x="25" y="100" fill="white" font-size="16">
               • Stelle totali: ${totalStars}
             </text>
-          
             <text x="25" y="125" fill="white" font-size="16">
               • Followers: ${user.followers}
             </text>
-          
             <text x="25" y="155" fill="#AAAAAA" font-size="12">
               Ultimo update: ${today}
             </text>
           </svg>
             `;
-
             fs.writeFileSync("assets/stats.svg", statsSvg);
 
             // ===================== TOP-LANGS.SVG =====================
-            const bars = topLangs.map(([lang, count], i) => {
+            const bars = topLangs.map(([lang], i) => {
               const widths = [260, 200, 140];
               const yPositions = [70, 105, 140];
 
               return `
             <text x="20" y="${yPositions[i]}" fill="white" font-size="16">${lang}</text>
-            <rect x="180" y="${yPositions[i] - 15}" 
+            <rect x="180" y="${yPositions[i] - 15}"
                   width="${widths[i]}" height="14" rx="7" fill="#4CAF50"/>
               `;
             }).join("\n");
@@ -111,24 +95,59 @@ jobs:
             const topLangsSvg = `
           <svg width="520" height="200" xmlns="http://www.w3.org/2000/svg">
             <rect width="520" height="200" rx="16" fill="#0A0F1F"/>
-          
             <text x="20" y="40" fill="#4CAF50" font-size="22">
               Top Languages — SimplyPowfu
             </text>
-          
+
             ${bars}
-          
+
             <text x="20" y="180" fill="#AAAAAA" font-size="12">
               Aggiornato: ${today}
             </text>
           </svg>
             `;
-
             fs.writeFileSync("assets/top-langs.svg", topLangsSvg);
+
+            // ===================== CARD PROGETTI =====================
+
+            function projectCard(repoName, description, stars, language) {
+              return `
+          <svg width="520" height="140" xmlns="http://www.w3.org/2000/svg">
+            <rect width="520" height="140" rx="16" fill="#0A0F1F"/>
+            <text x="20" y="35" fill="#4CAF50" font-size="20">${repoName}</text>
+            <text x="20" y="65" fill="white" font-size="14">${description}</text>
+            <text x="20" y="95" fill="white" font-size="14">⭐ ${stars} stelle</text>
+            <text x="20" y="115" fill="white" font-size="14">🛠️ ${language || "N/A"}</text>
+          </svg>
+              `;
+            }
+
+            // Troviamo i tuoi due repo
+            const repo42 = repos.find(r => r.name === "42CommonCore");
+            const repoTrans = repos.find(r => r.name === "Transcendence");
+
+            const card42 = projectCard(
+              "42CommonCore",
+              repo42?.description || "Progetti del Common Core di 42",
+              repo42?.stargazers_count || 0,
+              repo42?.language || "C"
+            );
+
+            const cardTrans = projectCard(
+              "Transcendence",
+              repoTrans?.description || "Progetto Web di 42",
+              repoTrans?.stargazers_count || 0,
+              repoTrans?.language || "TypeScript"
+            );
+
+            fs.writeFileSync("assets/42CommonCore.svg", card42);
+            fs.writeFileSync("assets/Transcendence.svg", cardTrans);
           }
 
           getStats();
           EOF
+
+          node script.js
 
       - name: Commit and push
         run: |
