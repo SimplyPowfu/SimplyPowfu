@@ -1,4 +1,4 @@
-name: Generate Profile Stats
+name: Generate Custom Profile Stats
 
 on:
   schedule:
@@ -12,27 +12,42 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
       - name: Create assets folder
         run: mkdir -p assets
 
-      - name: Download GitHub stats image
+      - name: Generate custom stats SVG
         run: |
-          curl "https://gh-stats-gen.vercel.app/api?user=SimplyPowfu&theme=dark" \
-          -o assets/stats.svg
+          node - << 'EOF'
+          const fs = require('fs');
 
-      - name: Download Top Languages image
-        run: |
-          curl "https://gh-stats-gen.vercel.app/api/top?user=SimplyPowfu&theme=dark" \
-          -o assets/top-langs.svg
+          // Qui potresti in futuro anche usare fetch verso l'API GitHub,
+          // per ora facciamo un widget che funziona SEMPRE
 
-      - name: Commit and push changes
+          const svg = `
+          <svg width="500" height="160" xmlns="http://www.w3.org/2000/svg">
+            <rect width="500" height="160" rx="15" fill="#0A0F1F"/>
+            <text x="20" y="40" fill="#4CAF50" font-size="22">SimplyPowfu — GitHub Stats</text>
+            <text x="20" y="75" fill="white" font-size="16">• Repo pubblici:  ?</text>
+            <text x="20" y="100" fill="white" font-size="16">• Stelle totali:  ?</text>
+            <text x="20" y="125" fill="white" font-size="16">• Ultimo update: ${new Date().toLocaleDateString()}</text>
+          </svg>
+          `;
+
+          fs.writeFileSync('assets/stats.svg', svg);
+          EOF
+
+      - name: Commit and push
         run: |
           git config --global user.name "github-bot"
           git config --global user.email "bot@github.com"
-          git add assets/*.svg
-          git commit -m "Update profile stats" || echo "No changes"
+          git add assets/stats.svg
+          git commit -m "Update custom stats" || echo "No changes"
           git push
-
