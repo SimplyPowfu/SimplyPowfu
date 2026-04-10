@@ -39,14 +39,26 @@ Currently studying at <strong>42 coding school in Florence</strong>.
 ### My project
 
 <p align="center">
-  <a href="https://github.com/SimplyPowfu/42CommonCore">
-    <img src="./assets/42CommonCore.svg" height="140" alt="42CommonCore repository"/>
+  <a href="https://github.com/SimplyPowfu/Transcendence">
+    <img src="./assets/Transcendence.svg" height="140" alt="Transcendence repository"/>
   </a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/SimplyPowfu/Transcendence">
-    <img src="./assets/Transcendence.svg" height="140" alt="Transcendence repository"/>
+  <a href="https://github.com/SimplyPowfu/red-tetris">
+    <img src="./assets/red-tetris.svg" height="140" alt="red-tetris repository"/>
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/SimplyPowfu/camagru">
+    <img src="./assets/camagru.svg" height="140" alt="camagru repository"/>
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/SimplyPowfu/42CommonCore">
+    <img src="./assets/42CommonCore.svg" height="140" alt="42CommonCore repository"/>
   </a>
 </p>
 
@@ -55,7 +67,7 @@ Currently studying at <strong>42 coding school in Florence</strong>.
 
 <p align="center">
   <img
-    src="https://skillicons.dev/icons?i=c,cpp,cs,python,html,css,ts,react,nodejs,express,prisma,supabase,firebase,unity,linux,docker,git,vercel,vscode&perline=10"
+    src="https://skillicons.dev/icons?i=c,cpp,cs,php,python,html,css,ts,react,vue,nodejs,express,prisma,supabase,unity,linux,docker,git,vercel,vscode&perline=10"
     alt="Skill icons"
   />
 </p>
