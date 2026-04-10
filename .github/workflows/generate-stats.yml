@@ -35,7 +35,6 @@ jobs:
           const headers = TOKEN ? { Authorization: `Bearer ${TOKEN}` } : {};
 
           async function getStats() {
-            // --- FETCH DATA ---
             const userRes = await fetch(`https://api.github.com/users/${USER}`, { headers });
             if (!userRes.ok) {
                 console.error("Failed to fetch user:", await userRes.text());
@@ -86,7 +85,6 @@ jobs:
                 </pattern>
             </defs>`;
 
-            // --- 1. STATS CARD ---
             const statsSvg = `
             <svg width="450" height="180" viewBox="0 0 450 180" xmlns="http://www.w3.org/2000/svg">
                 ${commonDefs}
@@ -114,7 +112,6 @@ jobs:
                 <text x="25" y="155" fill="${TEXT_DIM}" font-family="Segoe UI, sans-serif" font-size="11" font-style="italic">Last synced: ${today}</text>
             </svg>`;
 
-            // --- 2. TOP LANGUAGES CARD (Dynamic Bars) ---
             const maxVal = topLangs.length > 0 ? topLangs[0][1] : 1;
             const langBars = topLangs.map(([lang, count], i) => {
                 const width = (count / maxVal) * 220;
@@ -137,11 +134,9 @@ jobs:
                 ${langBars}
             </svg>`;
 
-            // --- WRITE FILES ---
             fs.writeFileSync("assets/stats.svg", statsSvg);
             fs.writeFileSync("assets/top-langs.svg", topLangsSvg);
 
-            // --- 3. PROJECT CARDS (Simplified Minimal) ---
             function generateProjectCard(name, desc, stars, lang) {
                 return `
                 <svg width="450" height="120" viewBox="0 0 450 120" xmlns="http://www.w3.org/2000/svg">
@@ -152,12 +147,23 @@ jobs:
                     <text x="40" y="94" fill="${TEXT_DIM}" font-family="Segoe UI, sans-serif" font-size="12">${lang || 'N/A'}  •  ⭐ ${stars}</text>
                 </svg>`;
             }
+            
+            const repoList = [
+                "42CommonCore",
+                "Transcendence",
+                "camagru",
+                "red-tetris"
+            ];
 
-            const repo42 = repos.find(r => r.name === "42CommonCore") || { name: "42CommonCore", description: "Curriculum projects", stargazers_count: 0, language: "C" };
-            const repoTrans = repos.find(r => r.name === "Transcendence") || { name: "Transcendence", description: "Final web project", stargazers_count: 0, language: "TypeScript" };
-
-            fs.writeFileSync("assets/42CommonCore.svg", generateProjectCard(repo42.name, repo42.description, repo42.stargazers_count, repo42.language));
-            fs.writeFileSync("assets/Transcendence.svg", generateProjectCard(repoTrans.name, repoTrans.description, repoTrans.stargazers_count, repoTrans.language));
+            repoList.forEach(repoName => {
+                const data = repos.find(r => r.name.toLowerCase() === repoName.toLowerCase()) || { 
+                    name: repoName, 
+                    description: "Project repository", 
+                    stargazers_count: 0, 
+                    language: "Mixed" 
+                };
+                fs.writeFileSync(`assets/${repoName}.svg`, generateProjectCard(data.name, data.description, data.stargazers_count, data.language));
+            });
           }
 
           getStats();
@@ -170,5 +176,5 @@ jobs:
           git config --global user.name "github-bot"
           git config --global user.email "bot@github.com"
           git add assets/*.svg
-          git commit -m "Update profile widgets" || echo "No changes"
+          git commit -m "Update profile widgets (added camagru & red-tetris)" || echo "No changes"
           git push
