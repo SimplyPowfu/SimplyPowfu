@@ -14,21 +14,21 @@
           <text x="25" y="75" fill="#C9D1D9" font-family="Segoe UI, sans-serif" font-size="14">TypeScript</text>
           <rect x="140" y="63" width="240" height="10" rx="5" fill="#161b22" />
           <rect x="140" y="63" width="220" height="10" rx="5" fill="#58A6FF" />
-          <text x="400" y="75" fill="#8B949E" font-family="Segoe UI, sans-serif" font-size="12">4</text>
+          <text x="400" y="75" fill="#8B949E" font-family="Segoe UI, sans-serif" font-size="12">3</text>
       
           <text x="25" y="110" fill="#C9D1D9" font-family="Segoe UI, sans-serif" font-size="14">C</text>
           <rect x="140" y="98" width="240" height="10" rx="5" fill="#161b22" />
-          <rect x="140" y="98" width="110" height="10" rx="5" fill="#58A6FF" />
+          <rect x="140" y="98" width="146.66666666666666" height="10" rx="5" fill="#58A6FF" />
           <text x="400" y="110" fill="#8B949E" font-family="Segoe UI, sans-serif" font-size="12">2</text>
       
           <text x="25" y="145" fill="#C9D1D9" font-family="Segoe UI, sans-serif" font-size="14">PHP</text>
           <rect x="140" y="133" width="240" height="10" rx="5" fill="#161b22" />
-          <rect x="140" y="133" width="55" height="10" rx="5" fill="#58A6FF" />
+          <rect x="140" y="133" width="73.33333333333333" height="10" rx="5" fill="#58A6FF" />
           <text x="400" y="145" fill="#8B949E" font-family="Segoe UI, sans-serif" font-size="12">1</text>
       
           <text x="25" y="180" fill="#C9D1D9" font-family="Segoe UI, sans-serif" font-size="14">C++</text>
           <rect x="140" y="168" width="240" height="10" rx="5" fill="#161b22" />
-          <rect x="140" y="168" width="55" height="10" rx="5" fill="#58A6FF" />
+          <rect x="140" y="168" width="73.33333333333333" height="10" rx="5" fill="#58A6FF" />
           <text x="400" y="180" fill="#8B949E" font-family="Segoe UI, sans-serif" font-size="12">1</text>
       
   </svg>
