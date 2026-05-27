@@ -67,7 +67,7 @@ Currently studying at <strong>42 coding school in Florence</strong>.
 
 <p align="center">
   <img
-    src="https://skillicons.dev/icons?i=c,cpp,cs,php,python,html,css,ts,react,vue,nodejs,express,prisma,supabase,unity,linux,docker,git,vercel,vscode&perline=10"
+    src="https://skillicons.dev/icons?i=c,cpp,cs,php,net,python,html,css,ts,vue,nodejs,express,prisma,supabase,unity,linux,docker,git,vercel,vscode&perline=10"
     alt="Skill icons"
   />
 </p>
