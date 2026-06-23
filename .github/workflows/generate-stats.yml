@@ -149,7 +149,7 @@ jobs:
             }
             
             const repoList = [
-                "42CommonCore",
+                "TalentStream",
                 "Transcendence",
                 "camagru",
                 "red-tetris"
