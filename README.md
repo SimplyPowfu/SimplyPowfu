@@ -39,8 +39,8 @@ Currently studying at <strong>42 coding school in Florence</strong>.
 ### My project
 
 <p align="center">
-  <a href="https://github.com/SimplyPowfu/Transcendence">
-    <img src="./assets/Transcendence.svg" height="140" alt="Transcendence repository"/>
+  <a href="https://github.com/SimplyPowfu/TalentStream">
+    <img src="./assets/TalentStream.svg" height="140" alt="TalentStream repository"/>
   </a>
 </p>
 
